@@ -55,12 +55,21 @@
     [self.view addGestureRecognizer:swipeGestureRecog];
     
     
+//    
+//    WildcardGestureRecognizer * tapInterceptor = [[WildcardGestureRecognizer alloc] init];
+//    tapInterceptor.delegate = self;
+//    tapInterceptor.touchesDelegate = self;
+//    
+//    [self.view addGestureRecognizer:tapInterceptor];
     
-    WildcardGestureRecognizer * tapInterceptor = [[WildcardGestureRecognizer alloc] init];
-    tapInterceptor.delegate = self;
-    tapInterceptor.touchesDelegate = self;
+    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                 action:@selector(gestureRecognizerDidPan:)];
+    panGesture.cancelsTouchesInView = YES;
+    panGesture.minimumNumberOfTouches = 1;
+    panGesture.maximumNumberOfTouches = 1;
+    panGesture.delegate = self;
+    [self.view addGestureRecognizer:panGesture];
     
-    [self.view addGestureRecognizer:tapInterceptor];
     self.view.backgroundColor = [UIColor redColor];
     
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];
@@ -411,6 +420,61 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) gestureRecognizerDidPan:(UIPanGestureRecognizer*)panGesture
+{
+    
+    
+    CGPoint currentPoint = [panGesture translationInView:self.view ];
+    
+    
+    if (touchBeganPoint.x == 0) {
+        touchBeganPoint = [panGesture locationInView:[[UIApplication sharedApplication] keyWindow]];
+    }
+    CGFloat xOffSet = currentPoint.x - touchBeganPoint.x;
+    if (xOffSet > 0) {
+        self.view.frame = CGRectMake(xOffSet,
+                                     self.view.frame.origin.y,
+                                     self.view.frame.size.width,
+                                     self.view.frame.size.height);
+    }
+
+
+
+    //[panGesture setTranslation:CGPointZero inView:self.view];
+    
+
+
+    
+    if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled)
+    {
+        UIView * view = (UIView*)panGesture.view;
+
+        touchBeganPoint.x = 0;
+        if (CGRectGetMinX(view.frame) < -kTriggerOffSet)
+            [self moveToLeftSide];
+        // animate to right side
+        else if (CGRectGetMinX(view.frame) > kTriggerOffSet)
+            [self moveToRightSide];
+        else
+            [self restoreViewLocation];
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
+
 // Check touch position in this method (Add by Ethan, 2011-11-27)
 - (void)touchesBegan:(NSSet*) touches Event:(UIEvent *)event{
     UITouch *touch=[touches anyObject];
@@ -482,7 +546,7 @@
 // move view to left side
 - (void)moveToLeftSide {
     homeViewIsOutOfStage = YES;
-    [self animateHomeViewToSide:CGRectMake(-290.0f,
+    [self animateHomeViewToSide:CGRectMake(-200.0f,
                                            self.navigationController.view.frame.origin.y,
                                            self.navigationController.view.frame.size.width,
                                            self.navigationController.view.frame.size.height)];
@@ -491,7 +555,7 @@
 // move view to right side
 - (void)moveToRightSide {
     homeViewIsOutOfStage = YES;
-    [self animateHomeViewToSide:CGRectMake(290.0f,
+    [self animateHomeViewToSide:CGRectMake(200.0f,
                                            self.view.frame.origin.y,
                                            self.view.frame.size.width,
                                            self.view.frame.size.height)];

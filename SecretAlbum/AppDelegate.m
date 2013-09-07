@@ -29,7 +29,7 @@
     
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ViewController" owner:self options:nil];
     self.navController = [nib objectAtIndex:0];
-    
+    [self.navController pushViewController:[[PhotoAlbumViewController alloc] init] animated:NO];
     // Override point for customization after application launch.
     [self.window makeKeyAndVisible];
     

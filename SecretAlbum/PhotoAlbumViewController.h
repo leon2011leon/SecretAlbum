@@ -10,7 +10,7 @@
 #import "WildcardGestureRecognizer.h"
 #import "QBImagePickerController.h"
 #import "AGAlertViewWithProgressbar.h"
-@interface PhotoAlbumViewController : UINavigationController<UIGestureRecognizerDelegate,touchesDelegate,UIActionSheetDelegate,QBImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface PhotoAlbumViewController : UIViewController<UIGestureRecognizerDelegate,touchesDelegate,UIActionSheetDelegate,QBImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *myTableView;
     CGPoint touchBeganPoint;
@@ -19,6 +19,8 @@
     
     AGAlertViewWithProgressbar *alertViewWithProgressbar;
     
+    AVUser *tempUser;
+    NSString *albumId;
 }
 
 - (IBAction)leftBarBtnTapped:(id)sender;

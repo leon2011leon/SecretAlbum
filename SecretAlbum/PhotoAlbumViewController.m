@@ -73,7 +73,7 @@
     
     self.view.backgroundColor = [UIColor redColor];
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     myTableView.delegate = self;
     myTableView.dataSource = self;
@@ -83,14 +83,29 @@
     UIButton *btnReg = [UIButton buttonWithType:UIButtonTypeCustom];
     btnReg.frame = CGRectMake(10, 70, 100, 40);
     [btnReg setTitle:@"注册" forState:UIControlStateNormal];
+    [btnReg setBackgroundColor:[UIColor blackColor]];
     [btnReg addTarget:self action:@selector(clickRegBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnReg];
     
     UIButton *btnLogin = [UIButton buttonWithType:UIButtonTypeCustom];
     btnLogin.frame = CGRectMake(10, 170, 100, 40);
     [btnLogin setTitle:@"登陆" forState:UIControlStateNormal];
+    [btnLogin setBackgroundColor:[UIColor blackColor]];
     [btnLogin addTarget:self action:@selector(clickLoginBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnLogin];
+    
+    UIButton *btnCreate = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnCreate.frame = CGRectMake(150, 170, 100, 40);
+    [btnCreate setTitle:@"创建" forState:UIControlStateNormal];
+    [btnCreate setBackgroundColor:[UIColor blackColor]];
+    [btnCreate addTarget:self action:@selector(clickCreateBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnCreate];
+    
+    UIButton *btnGetAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnGetAlbum.frame = CGRectMake(150, 270, 100, 40);
+    [btnGetAlbum setTitle:@"获取相册" forState:UIControlStateNormal];
+    [btnGetAlbum addTarget:self action:@selector(clickGetAlbumBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnGetAlbum];
     
     UIButton *btnCamera = [UIButton buttonWithType:UIButtonTypeCustom];
     btnCamera.frame = CGRectMake(10, 270, 100, 40);
@@ -129,6 +144,7 @@
         if (user) {
             //Open the wall
             NSLog(@"%@",user);
+            tempUser = user;
             UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Login success" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
             [myAlertView show];
             //[self performSegueWithIdentifier:@"LoginSuccesful" sender:self];
@@ -137,6 +153,40 @@
             NSString *errorString = [[error userInfo] objectForKey:@"error"];
             UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [errorAlertView show];
+        }
+    }];
+}
+
+- (void)clickCreateBtn{
+    if (!tempUser) {
+        UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"请先登录" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [myAlert show];
+        return;
+    }
+    AVObject *createObj = [AVObject objectWithClassName:@"album"];
+    [createObj setObject:[tempUser objectId] forKey:@"userid"];
+    [createObj setObject:@"123456" forKey:@"password"];
+    [createObj setObject:@"私密照片名称" forKey:@"albumname"];
+    [createObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"创建相册成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [myAlert show];
+        }
+    }];
+}
+
+- (void)clickGetAlbumBtn{
+    NSString *strPassword = @"123456";
+    NSString *strUserID = [tempUser objectId];
+    
+    AVQuery*query = [AVQuery queryWithClassName:@"album"];
+    [query whereKey:@"userid" equalTo:strUserID];
+    [query whereKey:@"password" equalTo:strPassword];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"%@",objects);
+            albumId = [[objects objectAtIndex:0] objectId];
+            NSLog(@"%@",albumId);
         }
     }];
 }
@@ -202,7 +252,7 @@
             
             NSLog(@"Selected %d photos", [info count]);
             
-            [self postImage];
+            
         }
     }
     else
@@ -212,9 +262,15 @@
         {
             i = [self scaleImage:i toScale:640/i.size.width];
         }
-        [_array addObject:i];
+        PhotoItemInfo *info = [[PhotoItemInfo alloc] init];
+        info.imgOrigin = i;
+        info.imgThumbnail = [self thumbnailImage:i];
+        
+        [_array addObject:info];
         
     }
+    
+    [self postImage];
     //[self reloadImages];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -294,7 +350,7 @@
                 AVObject *obj = [AVObject objectWithClassName:@"photo"];
                 [obj setObject:imageFile forKey:@"originurl"];
                 [obj setObject:imageFile2 forKey:@"thumbnailurl"];
-                [obj setObject:@"1" forKey:@"albumID"];
+                [obj setObject:albumId forKey:@"albumID"];
                 [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
                         if (i<[_array count]-1) {
@@ -350,7 +406,7 @@
 
 - (void)reloadImage{
     AVQuery*query = [AVQuery queryWithClassName:@"photo"];
-    [query whereKey:@"albumID" equalTo:@"1"];
+    [query whereKey:@"albumID" equalTo:albumId?albumId:@"1"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"%@",objects);
@@ -420,7 +476,7 @@
             controller.str = [NSString stringWithFormat:@"%d/%d",i+1,arrayPhotos.count];
         }
     }
-    [self pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

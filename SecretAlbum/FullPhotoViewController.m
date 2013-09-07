@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
     
     self.view.backgroundColor = [UIColor grayColor];
     if (!pageViewController) {
@@ -35,10 +36,10 @@
     pageViewController.indicatorStyle = CVScrollPageIndicatorStyleLight;
     pageViewController.view.exclusiveTouch = YES;
     pageViewController.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    pageViewController.pageControlFrame = CGRectMake(0, pageViewController.frame.origin.y+pageViewController.frame.size.height-20, 320, 20);
+    //pageViewController.pageControlFrame = CGRectMake(0, pageViewController.frame.origin.y+pageViewController.frame.size.height-20, 320, 20);
     [pageViewController setDelegate:self];
     [self.view addSubview:pageViewController.view];
-    [self.view addSubview:pageViewController.pageControl];
+    //[self.view addSubview:pageViewController.pageControl];
     [self performSelector:@selector(loadPageContent)];
     
     
@@ -46,6 +47,8 @@
     _photo.contentMode = UIViewContentModeScaleAspectFit;
     _photo.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:_photo];
+    
+    NSLog(@"%@",NSStringFromCGRect(self.view.frame));
     
     _top = [[AVImageView alloc] init];
     _top.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.5];
@@ -59,11 +62,15 @@
     
     _lbTitle = [[UILabel alloc] init];
     _lbTitle.frame = _top.frame;
+    _lbTitle.backgroundColor = [UIColor clearColor];
+    _lbTitle.textColor = [UIColor whiteColor];
+    _lbTitle.textAlignment = NSTextAlignmentCenter;
     _lbTitle.font = [UIFont systemFontOfSize:16];
+    _lbTitle.text = self.str;
     [self.view addSubview:_lbTitle];
     
     _btnClose = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btnClose.frame = CGRectMake(self.view.frame.size.width-60, 13, 50, 50);
+    _btnClose.frame = CGRectMake(self.view.frame.size.width-60, 0, 50, 50);
     [_btnClose setImage:[UIImage imageNamed:@"close2"] forState:UIControlStateNormal];
     [_btnClose addTarget:self action:@selector(clickCloseBtn) forControlEvents:UIControlEventTouchUpInside];
     //[_btnClose addSignal:photoBoard.CLOSE forControlEvents:UIControlEventTouchUpInside];
@@ -114,6 +121,7 @@
         pageView.frame = self.view.bounds;
     }
     pageView.file = ((PhotoItemInfo *)[self.arrayPic objectAtIndex:index]).fileOrigin;
+    [pageView loadInBackground];
     return pageView;
 }
 

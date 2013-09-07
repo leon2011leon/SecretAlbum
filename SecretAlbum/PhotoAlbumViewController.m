@@ -11,6 +11,7 @@
 #import "WildcardGestureRecognizer.h"
 #import "PhotoItemInfo.h"
 #import "PhotoCell.h"
+#import "FullPhotoViewController.h"
 //#import "QBImagePickerController.h"
 
 
@@ -72,7 +73,7 @@
     
     self.view.backgroundColor = [UIColor redColor];
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     myTableView.delegate = self;
     myTableView.dataSource = self;
@@ -388,7 +389,9 @@
     if (cell == nil) {
         cell = [[PhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cal"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.photoInfo1 = [arrayPhotos objectAtIndex:indexPath.row*3];
+    cell.mainContent = self;
     if (indexPath.row*3+1<=arrayPhotos.count-1) {
         cell.photoInfo2 = [arrayPhotos objectAtIndex:indexPath.row*3+1];
     }
@@ -408,7 +411,17 @@
     return cell;
 }
 
-
+- (void)showFull:(PhotoItemInfo *)photoInfo{
+    FullPhotoViewController *controller = [[FullPhotoViewController alloc] init];
+    controller.arrayPic = arrayPhotos;
+    for (int i = 0; i < arrayPhotos.count; i++) {
+        if ([photoInfo isEqual:[arrayPhotos objectAtIndex:i]]) {
+            controller.selIndex = i;
+            controller.str = [NSString stringWithFormat:@"%d/%d",i+1,arrayPhotos.count];
+        }
+    }
+    [self pushViewController:controller animated:YES];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

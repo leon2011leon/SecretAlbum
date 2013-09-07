@@ -17,7 +17,6 @@
     UIImage *selImage;
 }
 
-@property (nonatomic,strong) NSString * url;
 @property (nonatomic,strong) NSString * str;
 @property (nonatomic,strong) NSArray *arrayPic;
 @property (nonatomic,assign) int selIndex;

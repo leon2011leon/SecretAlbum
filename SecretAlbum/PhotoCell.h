@@ -12,8 +12,10 @@
 
 @interface PhotoCell : UITableViewCell{
     AVImageView *imgPhoto[kItemCount];
+    UIButton *btnPhoto[kItemCount];
 }
 @property (nonatomic, strong) PhotoItemInfo *photoInfo1,*photoInfo2,*photoInfo3;
+@property (nonatomic, strong) id mainContent;
 
 - (void)loadContent;
 

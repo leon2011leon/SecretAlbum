@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor grayColor];
     if (!pageViewController) {
         pageViewController = [[CVScrollPageViewController alloc] init];
     }

@@ -10,4 +10,8 @@
 
 @interface PhotoItemInfo : NSObject
 
+@property (nonatomic, strong) UIImage *imgOrigin,*imgThumbnail;
+@property (nonatomic, strong) NSString *strOriginName,*strThumbnailName;
+@property (nonatomic, strong) AVFile *fileOrigin,*fileThumbnail;
+
 @end

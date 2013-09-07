@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftMenuViewController : UIViewController
+@interface LeftMenuViewController : UIViewController<UIAlertViewDelegate>
 
 - (void)setVisible:(BOOL)visible;
 

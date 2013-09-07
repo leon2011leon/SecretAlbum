@@ -21,5 +21,5 @@
 @property (strong, nonatomic)  LeftMenuViewController*leftViewController;
 
 - (void)makeLeftViewVisible;
-
+- (void)restoreViewLocation;
 @end

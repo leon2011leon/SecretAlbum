@@ -80,4 +80,11 @@
     self.navController.view.layer.masksToBounds = NO;
     [self.leftViewController setVisible:YES];
 }
+
+- (void)restoreViewLocation{
+    
+   PhotoAlbumViewController* ctrler = (PhotoAlbumViewController*)self.navController;
+    [ctrler restoreViewLocation];
+    
+}
 @end

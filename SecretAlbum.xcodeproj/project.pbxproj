@@ -32,6 +32,11 @@
 		00294F1317DB331E00B08AB1 /* QBImagePickerVideoInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294F0A17DB331D00B08AB1 /* QBImagePickerVideoInfoView.m */; };
 		00294F1617DB33A500B08AB1 /* PhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294F1517DB33A500B08AB1 /* PhotoCell.m */; };
 		00294F1817DB342B00B08AB1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00294F1717DB342B00B08AB1 /* AssetsLibrary.framework */; };
+		10872A4617DB3F660086E25B /* FullPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10872A4517DB3F660086E25B /* FullPhotoViewController.m */; };
+		10872A5017DB3FBC0086E25B /* BBXScrollContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10872A4917DB3FBC0086E25B /* BBXScrollContentView.m */; };
+		10872A5117DB3FBC0086E25B /* CVPageControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10872A4B17DB3FBC0086E25B /* CVPageControlView.m */; };
+		10872A5217DB3FBC0086E25B /* CVScrollPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10872A4D17DB3FBC0086E25B /* CVScrollPageViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		10872A5317DB3FBC0086E25B /* WCPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10872A4F17DB3FBC0086E25B /* WCPageContentView.m */; };
 		10AAECE617DAC2E10086B49C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE517DAC2E10086B49C /* UIKit.framework */; };
 		10AAECE817DAC2E10086B49C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE717DAC2E10086B49C /* Foundation.framework */; };
 		10AAECEA17DAC2E10086B49C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE917DAC2E10086B49C /* CoreGraphics.framework */; };
@@ -109,6 +114,16 @@
 		00294F1417DB33A500B08AB1 /* PhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCell.h; sourceTree = "<group>"; };
 		00294F1517DB33A500B08AB1 /* PhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCell.m; sourceTree = "<group>"; };
 		00294F1717DB342B00B08AB1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		10872A4417DB3F660086E25B /* FullPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullPhotoViewController.h; sourceTree = "<group>"; };
+		10872A4517DB3F660086E25B /* FullPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullPhotoViewController.m; sourceTree = "<group>"; };
+		10872A4817DB3FBC0086E25B /* BBXScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXScrollContentView.h; sourceTree = "<group>"; };
+		10872A4917DB3FBC0086E25B /* BBXScrollContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBXScrollContentView.m; sourceTree = "<group>"; };
+		10872A4A17DB3FBC0086E25B /* CVPageControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVPageControlView.h; sourceTree = "<group>"; };
+		10872A4B17DB3FBC0086E25B /* CVPageControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVPageControlView.m; sourceTree = "<group>"; };
+		10872A4C17DB3FBC0086E25B /* CVScrollPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVScrollPageViewController.h; sourceTree = "<group>"; };
+		10872A4D17DB3FBC0086E25B /* CVScrollPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVScrollPageViewController.m; sourceTree = "<group>"; };
+		10872A4E17DB3FBC0086E25B /* WCPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPageContentView.h; sourceTree = "<group>"; };
+		10872A4F17DB3FBC0086E25B /* WCPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPageContentView.m; sourceTree = "<group>"; };
 		10AAECE217DAC2E10086B49C /* SecretAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AAECE517DAC2E10086B49C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		10AAECE717DAC2E10086B49C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -183,6 +198,8 @@
 				00294EB517DACBC700B08AB1 /* OpenPhotoAlbumViewController.m */,
 				00294EB717DACBE300B08AB1 /* CreatPhotoAlbumViewController.h */,
 				00294EB817DACBE300B08AB1 /* CreatPhotoAlbumViewController.m */,
+				10872A4417DB3F660086E25B /* FullPhotoViewController.h */,
+				10872A4517DB3F660086E25B /* FullPhotoViewController.m */,
 			);
 			name = ctrler;
 			sourceTree = "<group>";
@@ -207,6 +224,7 @@
 		00294EDA17DB157700B08AB1 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				10872A4717DB3FBC0086E25B /* ScrollPage */,
 				00294EEA17DB1B9800B08AB1 /* DDAlertPrompt.h */,
 				00294EEB17DB1B9800B08AB1 /* DDAlertPrompt.m */,
 				00294EF617DB331D00B08AB1 /* AGAlertViewWithProgressbar.h */,
@@ -241,6 +259,21 @@
 				00294F0A17DB331D00B08AB1 /* QBImagePickerVideoInfoView.m */,
 			);
 			path = QBImagePicker;
+			sourceTree = "<group>";
+		};
+		10872A4717DB3FBC0086E25B /* ScrollPage */ = {
+			isa = PBXGroup;
+			children = (
+				10872A4817DB3FBC0086E25B /* BBXScrollContentView.h */,
+				10872A4917DB3FBC0086E25B /* BBXScrollContentView.m */,
+				10872A4A17DB3FBC0086E25B /* CVPageControlView.h */,
+				10872A4B17DB3FBC0086E25B /* CVPageControlView.m */,
+				10872A4C17DB3FBC0086E25B /* CVScrollPageViewController.h */,
+				10872A4D17DB3FBC0086E25B /* CVScrollPageViewController.m */,
+				10872A4E17DB3FBC0086E25B /* WCPageContentView.h */,
+				10872A4F17DB3FBC0086E25B /* WCPageContentView.m */,
+			);
+			path = ScrollPage;
 			sourceTree = "<group>";
 		};
 		10AAECD917DAC2E10086B49C = {
@@ -408,6 +441,11 @@
 				00294F1217DB331E00B08AB1 /* QBImagePickerGroupCell.m in Sources */,
 				00294F1317DB331E00B08AB1 /* QBImagePickerVideoInfoView.m in Sources */,
 				00294F1617DB33A500B08AB1 /* PhotoCell.m in Sources */,
+				10872A4617DB3F660086E25B /* FullPhotoViewController.m in Sources */,
+				10872A5017DB3FBC0086E25B /* BBXScrollContentView.m in Sources */,
+				10872A5117DB3FBC0086E25B /* CVPageControlView.m in Sources */,
+				10872A5217DB3FBC0086E25B /* CVScrollPageViewController.m in Sources */,
+				10872A5317DB3FBC0086E25B /* WCPageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

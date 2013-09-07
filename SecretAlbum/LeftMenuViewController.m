@@ -34,5 +34,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)setVisible:(BOOL)visible {
+    self.view.hidden = !visible;
+}
 @end

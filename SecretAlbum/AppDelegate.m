@@ -10,16 +10,36 @@
 
 #import "ViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "PhotoAlbumViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    CGRect rect = [[UIScreen mainScreen] bounds];
+    self.leftViewController = [[LeftMenuViewController alloc] init];
+    self.leftViewController.view.frame = CGRectMake(0,
+                                                    20,
+                                                    rect.size.width,
+                                                    rect.size.height-20);
+    [self.window addSubview:self.leftViewController.view];
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ViewController" owner:self options:nil];
+    self.navController = [nib objectAtIndex:0];
+    
     // Override point for customization after application launch.
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    [self.leftViewController setVisible:NO];
+
+    
+    // main view (nav)
+    
+    [self.window addSubview:self.navController.view];
+    
     
     [AVOSCloud setApplicationId:@"kebqe6dp6m56fdr26ktwjkudydgyavnjqs06dza425lu7jdf"
                       clientKey:@"bnfpj0sutsxnoebw4bsil567ibap8ay0pllo4h58u9nno2o3"];
@@ -52,5 +72,12 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+- (void)makeLeftViewVisible {
+    self.navController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.navController.view.layer.shadowOpacity = 0.4f;
+    self.navController.view.layer.shadowOffset = CGSizeMake(-12.0, 1.0f);
+    self.navController.view.layer.shadowRadius = 7.0f;
+    self.navController.view.layer.masksToBounds = NO;
+    [self.leftViewController setVisible:YES];
+}
 @end

@@ -10,4 +10,6 @@
 
 @interface LeftMenuViewController : UIViewController
 
+- (void)setVisible:(BOOL)visible;
+
 @end

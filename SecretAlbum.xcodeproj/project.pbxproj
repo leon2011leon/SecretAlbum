@@ -19,6 +19,7 @@
 		00294EC217DACC4F00B08AB1 /* PhotoItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294EC117DACC4F00B08AB1 /* PhotoItemInfo.m */; };
 		00294EC517DACC6300B08AB1 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294EC417DACC6300B08AB1 /* UserInfo.m */; };
 		00294EC817DACC8800B08AB1 /* AvosDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294EC717DACC8800B08AB1 /* AvosDataManager.m */; };
+		00294ED417DAFA0800B08AB1 /* WildcardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 00294ED217DAFA0700B08AB1 /* WildcardGestureRecognizer.m */; };
 		10AAECE617DAC2E10086B49C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE517DAC2E10086B49C /* UIKit.framework */; };
 		10AAECE817DAC2E10086B49C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE717DAC2E10086B49C /* Foundation.framework */; };
 		10AAECEA17DAC2E10086B49C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10AAECE917DAC2E10086B49C /* CoreGraphics.framework */; };
@@ -69,6 +70,8 @@
 		00294EC417DACC6300B08AB1 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		00294EC617DACC8800B08AB1 /* AvosDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvosDataManager.h; sourceTree = "<group>"; };
 		00294EC717DACC8800B08AB1 /* AvosDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvosDataManager.m; sourceTree = "<group>"; };
+		00294ED217DAFA0700B08AB1 /* WildcardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildcardGestureRecognizer.m; sourceTree = "<group>"; };
+		00294ED317DAFA0700B08AB1 /* WildcardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildcardGestureRecognizer.h; sourceTree = "<group>"; };
 		10AAECE217DAC2E10086B49C /* SecretAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AAECE517DAC2E10086B49C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		10AAECE717DAC2E10086B49C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -205,6 +208,8 @@
 		10AAECEB17DAC2E10086B49C /* SecretAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				00294ED217DAFA0700B08AB1 /* WildcardGestureRecognizer.m */,
+				00294ED317DAFA0700B08AB1 /* WildcardGestureRecognizer.h */,
 				00294EA417DACA5A00B08AB1 /* model */,
 				00294EA217DACA2C00B08AB1 /* ctrler */,
 				10AAECF417DAC2E10086B49C /* AppDelegate.h */,
@@ -312,6 +317,7 @@
 				00294EC217DACC4F00B08AB1 /* PhotoItemInfo.m in Sources */,
 				00294EC517DACC6300B08AB1 /* UserInfo.m in Sources */,
 				00294EC817DACC8800B08AB1 /* AvosDataManager.m in Sources */,
+				00294ED417DAFA0800B08AB1 /* WildcardGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WildcardGestureRecognizer.h"
 
-@interface PhotoAlbumViewController : UIViewController
-
+@interface PhotoAlbumViewController : UINavigationController<UIGestureRecognizerDelegate,touchesDelegate>
+{
+    CGPoint touchBeganPoint;
+    BOOL homeViewIsOutOfStage;
+}
+- (IBAction)leftBarBtnTapped:(id)sender;
 @end

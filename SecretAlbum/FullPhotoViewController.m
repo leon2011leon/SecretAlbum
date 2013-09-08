@@ -39,6 +39,7 @@
     //pageViewController.pageControlFrame = CGRectMake(0, pageViewController.frame.origin.y+pageViewController.frame.size.height-20, 320, 20);
     [pageViewController setDelegate:self];
     [self.view addSubview:pageViewController.view];
+    pageViewController.pageControl.hidden = YES;
     //[self.view addSubview:pageViewController.pageControl];
     [self performSelector:@selector(loadPageContent)];
     

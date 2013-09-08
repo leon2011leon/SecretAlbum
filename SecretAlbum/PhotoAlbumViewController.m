@@ -36,7 +36,9 @@
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_top"]];
+    UIImage *backgroundImage = [UIImage imageNamed:@"navi_bg"];
+    [self.navigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+    //self.navigationController.navigationBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navi_bg"]];
 
     UILabel * titleLabel = [[UILabel alloc ]initWithFrame:CGRectMake(0, 0, 160, 44)];
     [titleLabel setTextColor:[UIColor whiteColor]];
@@ -55,12 +57,13 @@
     
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"我的塔读_on.png"] forState:UIControlStateHighlighted];
-    [button setImage:[UIImage imageNamed:@"我的塔读_off.png"] forState:UIControlStateNormal];
+    //[button ]
+    //[button setImage:[UIImage imageNamed:@"我的塔读_on.png"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
     
-    button.frame = CGRectMake(0, 0, 50, 30);
+    button.frame = CGRectMake(0, 0, 40, 88);
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    [button addTarget:self action:@selector(toMoreViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(clickCameraBtn) forControlEvents:UIControlEventTouchUpInside];
     
     barItem.width = 50;
     self.navigationItem.rightBarButtonItem = barItem;
@@ -122,6 +125,7 @@
     myTableView.dataSource = self;
     [self.view addSubview:myTableView];
     
+    /*
     
     UIButton *btnReg = [UIButton buttonWithType:UIButtonTypeCustom];
     btnReg.frame = CGRectMake(10, 70, 100, 40);
@@ -162,7 +166,7 @@
     [btnPhoto setTitle:@"查询" forState:UIControlStateNormal];
     [btnPhoto setBackgroundColor:[UIColor blackColor]];
     [btnPhoto addTarget:self action:@selector(reloadImage) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnPhoto];
+    [self.view addSubview:btnPhoto];*/
     
 }
 

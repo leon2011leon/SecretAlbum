@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cover"]];
 	// Do any additional setup after loading the view.
     [self loadLoginViewDetail];
     
@@ -38,32 +39,37 @@
 - (void)loadLoginViewDetail
 {
 
-    m_scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, 320, self.view.frame.size.height - 44)];
-    [m_scrollview setScrollEnabled:YES];
-    [self.view addSubview:m_scrollview];
-    [m_scrollview setContentSize:CGSizeMake(320, self.view.frame.size.height - 44)];
+//    m_scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, 320, self.view.frame.size.height - 44)];
+//    [m_scrollview setScrollEnabled:YES];
+//    [self.view addSubview:m_scrollview];
+//    [m_scrollview setContentSize:CGSizeMake(320, self.view.frame.size.height - 44)];
     
-    UIImageView* bg_imageview = [[UIImageView alloc] initWithFrame:CGRectMake(10, 17, 300, 89)];
-    [bg_imageview setImage:[[UIImage imageNamed:@"table_single.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
-    bg_imageview.tag = 101;
-    [m_scrollview addSubview:bg_imageview];
+//    UIImageView* bg_imageview = [[UIImageView alloc] initWithFrame:CGRectMake(10, 17, 300, 89)];
+//    [bg_imageview setImage:[[UIImage imageNamed:@"table_single.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
+//    bg_imageview.tag = 101;
+//    [self.view addSubview:bg_imageview];
 
     
     
-    fieldEmail = [[UITextField alloc] initWithFrame:CGRectMake(25, 20, 280, 40)];
+    UIView *vi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+    UIView *vi2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+    
+    fieldEmail = [[UITextField alloc] initWithFrame:CGRectMake(30, 150, 260, 40)];
+    fieldEmail.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"intput_bg"]];
     fieldEmail.font = [UIFont systemFontOfSize:14];
     fieldEmail.keyboardType = UIKeyboardTypeDefault;
-    fieldEmail.backgroundColor = [UIColor clearColor];
     fieldEmail.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;  //垂直居中
     fieldEmail.placeholder = @"邮箱(必填)";
     fieldEmail.text = @"test";
+    fieldEmail.leftView = vi;
+    fieldEmail.leftViewMode = UITextFieldViewModeAlways;
     //    [[fieldEmail textInputTraits] setValue:[UIColor colorWithRed:155/255.0 green:214/255.0 blue:95/255.0 alpha:1.0]
     //                                                 forKey:@"insertionPointColor"];
     fieldEmail.delegate = self;
-    [m_scrollview addSubview:fieldEmail];
+    [self.view addSubview:fieldEmail];
     
-    fieldPass = [[UITextField alloc] initWithFrame:CGRectMake(25, 65, 280, 40)];
-    fieldPass.backgroundColor = [UIColor clearColor];
+    fieldPass = [[UITextField alloc] initWithFrame:CGRectMake(30, 215, 260, 40)];
+    fieldPass.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"intput_bg"]];
     fieldPass.font = [UIFont systemFontOfSize:14];
     fieldPass.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;  //垂直居中
     fieldPass.secureTextEntry = YES;
@@ -71,35 +77,35 @@
     fieldPass.delegate = self;
     fieldPass.placeholder = @"密码(必填)";
     fieldPass.text = @"12345678";
+    fieldPass.leftView = vi2;
+    fieldPass.leftViewMode = UITextFieldViewModeAlways;
     //    [[fieldPass textInputTraits] setValue:[UIColor colorWithRed:155/255.0 green:214/255.0 blue:95/255.0 alpha:1.0]
     //                                    forKey:@"insertionPointColor"];
-    [m_scrollview addSubview:fieldPass];
+    [self.view addSubview:fieldPass];
     
-    UILabel* labelline = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, 300, 1)];
-    labelline.backgroundColor = [UIColor colorWithRed:213/255.0 green:213/255.0 blue:213/255.0 alpha:1.0];
-    [bg_imageview addSubview:labelline];
+//    UILabel* labelline = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, 300, 1)];
+//    labelline.backgroundColor = [UIColor colorWithRed:213/255.0 green:213/255.0 blue:213/255.0 alpha:1.0];
+//    [bg_imageview addSubview:labelline];
 
     
     
     UIButton* buttonLogin = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonLogin setFrame:CGRectMake(10, 121, 300, 49)];
-    [buttonLogin setBackgroundImage:[[UIImage imageNamed:@"home_btn"] stretchableImageWithLeftCapWidth:5 topCapHeight:5]  forState:UIControlStateNormal];
+    [buttonLogin setFrame:CGRectMake(0, 0, 227, 50)];
+    buttonLogin.center = CGPointMake(160, fieldPass.frame.origin.y+fieldPass.frame.size.height+60);
+    [buttonLogin setBackgroundImage:[[UIImage imageNamed:@"login"] stretchableImageWithLeftCapWidth:5 topCapHeight:5]  forState:UIControlStateNormal];
     buttonLogin.tag = 102;
-    //    [buttonLogin setBackgroundImage:[UIImage imageFileNamed:@"login_button_d.png"] forState:UIControlStateHighlighted];
-    buttonLogin.titleLabel.font = [UIFont boldSystemFontOfSize:24];
-    [buttonLogin setTitle:@"登  录" forState:UIControlStateNormal];
     [buttonLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [buttonLogin addTarget:self action:@selector(LoginDone) forControlEvents:UIControlEventTouchUpInside];
-    [m_scrollview addSubview:buttonLogin];
-    m_scrollview.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithRed:213/255.0 green:213/255.0 blue:213/255.0 alpha:1.0];
+    [self.view addSubview:buttonLogin];
+    //m_scrollview.backgroundColor = [UIColor clearColor];
+    //self.view.backgroundColor = [UIColor colorWithRed:213/255.0 green:213/255.0 blue:213/255.0 alpha:1.0];
     
 	// Do any additional setup after loading the view.
 }
 
 #pragma mark textfielddelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    [m_scrollview setFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44 - 216)];
+    //[m_scrollview setFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44 - 216)];
     //    [m_scrollview setContentSize:CGSizeMake(320, self.frame.size.height - 44)];
     
 }
@@ -112,7 +118,7 @@
     if ([fieldEmail isFirstResponder]) {
         [fieldEmail resignFirstResponder];
     }
-    [m_scrollview setFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
+    //[m_scrollview setFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
 }
 
 //利用正则表达式验证
@@ -156,16 +162,23 @@
     }
     [fieldEmail resignFirstResponder];
     [fieldPass resignFirstResponder];
-    [m_scrollview setFrame:CGRectMake(0, 44, 320, self.view.frame.size.height - 44)];
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
+    [self.view.window addSubview:HUD];
+    HUD.delegate = self;
+    HUD.labelText = @"正在登录";
+    [HUD show:YES];
+    
     
     [AVUser logInWithUsernameInBackground:fieldEmail.text password:fieldPass.text block:^(AVUser *user, NSError *error) {
+        
         if (user) {
             //Open the wall
             NSLog(@"%@",user);
             tempUser = user;
             ((AppDelegate*)[UIApplication sharedApplication].delegate).tempUser = user;
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Login success" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
-            [myAlertView show];
+//            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Login success" message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+//            [myAlertView show];
             if (self.isFirst) {
                 
                 NSString *strPassword = @"123456";
@@ -175,6 +188,7 @@
                 [query whereKey:@"userid" equalTo:[user objectId]];
                 [query whereKey:@"password" equalTo:fieldPass.text];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    [HUD show:NO];
                     if (!error) {
                         AppDelegate* delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                         PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
@@ -193,6 +207,7 @@
             }
             //[self performSegueWithIdentifier:@"LoginSuccesful" sender:self];
         } else {
+            [HUD show:NO];
             //Something bad has ocurred
             NSString *errorString = [[error userInfo] objectForKey:@"error"];
             UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];

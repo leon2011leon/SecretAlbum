@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate >
+@interface LoginViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,MBProgressHUDDelegate>
 {
     UITableView* m_tableView;
     UITextField* fieldEmail;
@@ -17,6 +17,7 @@
     UIScrollView* m_scrollview;
     
     AVUser *tempUser;
+    MBProgressHUD *HUD;
 }
 @property(nonatomic)BOOL isFirst;
 @end

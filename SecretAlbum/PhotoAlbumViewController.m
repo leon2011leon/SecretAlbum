@@ -369,8 +369,8 @@
 
 
 - (void)postImage{
-    alertViewWithProgressbar = [[AGAlertViewWithProgressbar alloc] initWithTitle:@"正在上传" message:@"0%" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
-    alertViewWithProgressbar.progress = 10;
+    alertViewWithProgressbar = [[AGAlertViewWithProgressbar alloc] initWithTitle:@"正在上传" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    alertViewWithProgressbar.progress = 0;
     [alertViewWithProgressbar show];
     if (_array.count>0) {
         [self uploadImage:[_array objectAtIndex:0] index:0];
@@ -394,10 +394,14 @@
                 [obj setObject:_albumId forKey:@"albumID"];
                 [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
+                        
+                        alertViewWithProgressbar.progress = 100*(i+1)/_array.count;
+                        
                         if (i<[_array count]-1) {
                             [self uploadImage:[_array objectAtIndex:i+1] index:i+1];
                         }
                         else {
+                            [alertViewWithProgressbar hide];
                             [self reloadImage];
                             [_array removeAllObjects];
                         }

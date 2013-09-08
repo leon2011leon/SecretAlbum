@@ -56,6 +56,7 @@
     fieldEmail.backgroundColor = [UIColor clearColor];
     fieldEmail.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;  //垂直居中
     fieldEmail.placeholder = @"邮箱(必填)";
+    fieldEmail.text = @"test";
     //    [[fieldEmail textInputTraits] setValue:[UIColor colorWithRed:155/255.0 green:214/255.0 blue:95/255.0 alpha:1.0]
     //                                                 forKey:@"insertionPointColor"];
     fieldEmail.delegate = self;
@@ -69,6 +70,7 @@
     fieldPass.keyboardType = UIKeyboardTypeDefault;
     fieldPass.delegate = self;
     fieldPass.placeholder = @"密码(必填)";
+    fieldPass.text = @"12345678";
     //    [[fieldPass textInputTraits] setValue:[UIColor colorWithRed:155/255.0 green:214/255.0 blue:95/255.0 alpha:1.0]
     //                                    forKey:@"insertionPointColor"];
     [m_scrollview addSubview:fieldPass];

@@ -118,15 +118,16 @@
                         if (succeeded && !error) {
                             UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"创建相册成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                             [myAlert show];
+                            PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
+                            albumCtrler.albumId = [createObj objectId];
+                            albumCtrler.tempUser = appDelegate.tempUser;
+                            albumCtrler.isMainCtrler = NO;
+                            [albumCtrler reloadImage];
+                            
+                            [appDelegate.navController pushViewController :albumCtrler animated:YES];
                         }
                     }];
-                    PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
-                    albumCtrler.albumId = view.plainTextField.text;
-                    albumCtrler.tempUser = appDelegate.tempUser;
-                    albumCtrler.isMainCtrler = NO;
-                    [albumCtrler reloadImage];
-                    
-                    [appDelegate.navController pushViewController :albumCtrler animated:YES];
+
                 }
                 
             }else  if (alertView.tag == 101) {

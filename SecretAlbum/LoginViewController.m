@@ -189,7 +189,27 @@
                 [query whereKey:@"password" equalTo:fieldPass.text];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     [HUD hide:YES];
-                    if (!error) {
+                    if (objects==nil||objects.count==0) {
+                        AVObject *createObj = [AVObject objectWithClassName:@"album"];
+                        [createObj setObject:[tempUser objectId] forKey:@"userid"];
+                        [createObj setObject:fieldPass.text forKey:@"password"];
+                        [createObj setObject:@"私密相册" forKey:@"albumname"];
+                        [createObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (succeeded && !error) {
+                                UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"创建相册成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [myAlert show];
+                                
+                                AppDelegate* delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                                PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
+                                delegate.photoAlbumCtrler.albumId = [createObj objectId];
+                                delegate.photoAlbumCtrler.tempUser = user;
+                                [delegate.photoAlbumCtrler reloadImage];
+                                [delegate.loginViewCtrler.view removeFromSuperview];
+                                [delegate.window addSubview:delegate.leftViewController.view];
+                                [delegate.window addSubview:delegate.navController.view];
+                            }
+                        }];
+                    }else if (!error) {
                         AppDelegate* delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                         PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
                         delegate.photoAlbumCtrler.albumId = [[objects objectAtIndex:0] objectId];

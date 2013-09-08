@@ -51,6 +51,8 @@
     
     [AVOSCloud setApplicationId:@"kebqe6dp6m56fdr26ktwjkudydgyavnjqs06dza425lu7jdf"
                       clientKey:@"bnfpj0sutsxnoebw4bsil567ibap8ay0pllo4h58u9nno2o3"];
+    
+    sleep(2.5);
     return YES;
 }
 

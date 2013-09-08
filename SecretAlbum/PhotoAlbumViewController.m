@@ -46,7 +46,12 @@
     
     [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    titleLabel.text = @"私密云相册";
+    if (self.isMainCtrler) {
+        titleLabel.text = @"私密云相册";
+    }else{
+        titleLabel.text = @"隐形相册";
+    }
+    
     
     self.navigationItem.titleView = titleLabel;
     

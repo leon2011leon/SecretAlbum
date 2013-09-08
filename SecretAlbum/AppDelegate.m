@@ -28,6 +28,7 @@
                                                     rect.size.height-20);
     
     self.photoAlbumCtrler = [[PhotoAlbumViewController alloc] init];
+    self.photoAlbumCtrler.isMainCtrler = YES;
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ViewController" owner:self options:nil];
     self.navController = [nib objectAtIndex:0];
     [self.navController pushViewController:self.photoAlbumCtrler animated:NO];

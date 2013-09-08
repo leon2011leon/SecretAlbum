@@ -23,6 +23,8 @@
 }
 @property(strong,nonatomic)NSString *albumId;
 @property(strong,nonatomic)AVUser *tempUser;
+
+@property(nonatomic)BOOL isMainCtrler;
 - (IBAction)leftBarBtnTapped:(id)sender;
 - (void)restoreViewLocation;
 - (void)reloadImage;

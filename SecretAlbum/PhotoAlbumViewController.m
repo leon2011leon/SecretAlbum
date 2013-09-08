@@ -80,38 +80,40 @@
     
     
     _array = [[NSMutableArray alloc] init];
-    
-    UISwipeGestureRecognizer* swipeGestureRecog = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    [swipeGestureRecog setNumberOfTouchesRequired:1];
-    swipeGestureRecog.direction = UISwipeGestureRecognizerDirectionLeft;
-    swipeGestureRecog.delegate = self;
-    [self.navigationController.view addGestureRecognizer:swipeGestureRecog];
-    
-    
-    
-    
-    swipeGestureRecog = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    [swipeGestureRecog setNumberOfTouchesRequired:1];
-    swipeGestureRecog.direction = UISwipeGestureRecognizerDirectionRight;
-    swipeGestureRecog.delegate = self;
-    [self.navigationController.view addGestureRecognizer:swipeGestureRecog];
-    
-    
-//    
-//    WildcardGestureRecognizer * tapInterceptor = [[WildcardGestureRecognizer alloc] init];
-//    tapInterceptor.delegate = self;
-//    tapInterceptor.touchesDelegate = self;
-//    
-//    [self.view addGestureRecognizer:tapInterceptor];
-    
-    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                 action:@selector(gestureRecognizerDidPan:)];
-    panGesture.cancelsTouchesInView = YES;
-    panGesture.minimumNumberOfTouches = 1;
-    panGesture.maximumNumberOfTouches = 1;
-    panGesture.delegate = self;
-    [self.navigationController.view addGestureRecognizer:panGesture];
-    
+    if (self.isMainCtrler) {
+        UISwipeGestureRecognizer* swipeGestureRecog = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+        [swipeGestureRecog setNumberOfTouchesRequired:1];
+        swipeGestureRecog.direction = UISwipeGestureRecognizerDirectionLeft;
+        swipeGestureRecog.delegate = self;
+        [self.navigationController.view addGestureRecognizer:swipeGestureRecog];
+        
+        
+        
+        
+        swipeGestureRecog = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+        [swipeGestureRecog setNumberOfTouchesRequired:1];
+        swipeGestureRecog.direction = UISwipeGestureRecognizerDirectionRight;
+        swipeGestureRecog.delegate = self;
+        [self.navigationController.view addGestureRecognizer:swipeGestureRecog];
+        
+        
+        //
+        //    WildcardGestureRecognizer * tapInterceptor = [[WildcardGestureRecognizer alloc] init];
+        //    tapInterceptor.delegate = self;
+        //    tapInterceptor.touchesDelegate = self;
+        //
+        //    [self.view addGestureRecognizer:tapInterceptor];
+        
+        UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(gestureRecognizerDidPan:)];
+        panGesture.cancelsTouchesInView = YES;
+        panGesture.minimumNumberOfTouches = 1;
+        panGesture.maximumNumberOfTouches = 1;
+        panGesture.delegate = self;
+        [self.navigationController.view addGestureRecognizer:panGesture];
+        
+
+    }
     self.view.backgroundColor = [UIColor redColor];
     
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
@@ -699,8 +701,14 @@
 
 // handle left bar btn
 - (IBAction)leftBarBtnTapped:(id)sender {
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] makeLeftViewVisible];
-    [self moveToRightSide];
+    if (self.isMainCtrler) {
+        
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] makeLeftViewVisible];
+        [self moveToRightSide];
+    }else{
+        [self dismissModalViewControllerAnimated:YES];
+        [((AppDelegate *)[[UIApplication sharedApplication] delegate]).navController popViewControllerAnimated:YES];
+    }
 }
 
 

@@ -96,7 +96,7 @@
 		}
 //	}
     self.nameTextField.frame = CGRectMake(12, 30, 260, 56);
-    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y  - 75, self.frame.size.width, 280 )];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 280 )];
     
     for (UIView *v in self.subviews) {
         

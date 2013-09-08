@@ -112,9 +112,10 @@
                     PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
                     albumCtrler.albumId = view.plainTextField.text;
                     albumCtrler.tempUser = appDelegate.tempUser;
+                    albumCtrler.isMainCtrler = NO;
                     [albumCtrler reloadImage];
                     
-                    [self presentModalViewController:albumCtrler animated:YES];
+                    [appDelegate.navController pushViewController :albumCtrler animated:YES];
                 }
                 
             }else  if (alertView.tag == 101) {
@@ -133,10 +134,11 @@
                         PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
                         albumCtrler.albumId = [[objects objectAtIndex:0] objectId];
                         albumCtrler.tempUser = appDelegate.tempUser;
+                        [albumCtrler reloadImage];
+                        albumCtrler.isMainCtrler = NO;
+                        [((AppDelegate*)[UIApplication sharedApplication].delegate).navController pushViewController:albumCtrler animated:YES];
                         
-                        [((AppDelegate*)[UIApplication sharedApplication].delegate).navController pushViewController:albumCtrler animated:NO];
-                        
-                        [((AppDelegate*)[UIApplication sharedApplication].delegate).window addSubview:((AppDelegate*)[UIApplication sharedApplication].delegate).navController.view];
+                        //[((AppDelegate*)[UIApplication sharedApplication].delegate).window addSubview:((AppDelegate*)[UIApplication sharedApplication].delegate).navController.view];
                     }
                 }];
                 

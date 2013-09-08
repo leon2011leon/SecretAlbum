@@ -38,9 +38,13 @@
 }
 
 - (void)loadContent{
+    imgPhoto[0].image = [UIImage imageNamed:@"default_small"];
+    imgPhoto[1].image = [UIImage imageNamed:@"default_small"];
+    imgPhoto[2].image = [UIImage imageNamed:@"default_small"];
     imgPhoto[0].file = self.photoInfo1.fileThumbnail;
     [imgPhoto[0] loadInBackground];
     if (self.photoInfo2 != nil) {
+        
         imgPhoto[1].file = self.photoInfo2.fileThumbnail;
         [imgPhoto[1] loadInBackground];
         imgPhoto[1].hidden = NO;

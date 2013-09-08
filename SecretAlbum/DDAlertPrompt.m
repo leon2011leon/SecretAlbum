@@ -95,8 +95,9 @@
 			self.tableView.frame = CGRectMake(12.0f, 75.0f, 260.0f, 56.0f);
 		}
 //	}
-    self.nameTextField.frame = CGRectMake(12, 30, 260, 56);
-    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 280 )];
+    self.nameTextField.frame = CGRectMake(20, 45, 133, 33);
+    
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 250)];
     
     for (UIView *v in self.subviews) {
         
@@ -123,11 +124,15 @@
     
 	if (!_nameTextField) {
         
-		_nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(5.0f, 51.0f, 255.0f, 28.0f)];
+		_nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, 51.0f, 134.0f, 33.0f)];
 		_nameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		_nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _nameTextField.layer.cornerRadius = 3;
 		_nameTextField.placeholder = @"相册名";
+        _nameTextField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"albumName_bg"]];
+         UIView *vi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+        _nameTextField.leftView = vi;
+        _nameTextField.leftViewMode = UITextFieldViewModeAlways;
         
 	}
 	return _nameTextField;

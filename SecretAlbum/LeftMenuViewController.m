@@ -32,19 +32,22 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     UIButton* btnCreatAblum = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnCreatAblum.frame = CGRectMake(0, 150, 200, 50);
-    [btnCreatAblum setTitle:@"创建隐形相册" forState:UIControlStateNormal];
+    btnCreatAblum.frame = CGRectMake(0, 144, 200, 44);
+    //[btnCreatAblum setTitle:@"创建隐形相册" forState:UIControlStateNormal];
+    
+    [btnCreatAblum setBackgroundImage:[UIImage imageNamed:@"creat_bg"] forState:UIControlStateNormal];
     btnCreatAblum.backgroundColor = [UIColor redColor];
     [btnCreatAblum addTarget:self action:@selector(createAlbum) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnCreatAblum];
     
     UIButton* btnOpenAblum = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnOpenAblum.frame = CGRectMake(0, 100, 200, 50);
-    [btnOpenAblum setTitle:@"打开隐形相册" forState:UIControlStateNormal];
-    btnOpenAblum.backgroundColor = [UIColor redColor];
+    btnOpenAblum.frame = CGRectMake(0, 100, 200, 44);
+    //[btnOpenAblum setTitle:@"打开隐形相册" forState:UIControlStateNormal];
+    [btnOpenAblum setBackgroundImage:[UIImage imageNamed:@"open_bg"] forState:UIControlStateNormal];
     [btnOpenAblum addTarget:self action:@selector(openAlbum) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnOpenAblum];
-    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"liebiao_bg"]];
 }
 -(void)createAlbum{
     [(AppDelegate*)[UIApplication sharedApplication].delegate restoreViewLocation];
@@ -92,6 +95,14 @@
                     [prompt show];
                     
 
+                }else if(view.nameTextField.text.length == 0){
+                    UIAlertView *prompt = [[UIAlertView alloc] initWithTitle:nil
+                                                                     message:@"相册名不能为空"
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"确定"
+                                                           otherButtonTitles: nil];
+                    [prompt show];
+                
                 }else{
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     if (!appDelegate.tempUser) {

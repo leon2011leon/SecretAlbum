@@ -121,6 +121,7 @@
         pageView.contentMode = UIViewContentModeScaleAspectFit;
         pageView.frame = self.view.bounds;
     }
+    pageView.image = [UIImage imageNamed:@"default_big"];
     pageView.file = ((PhotoItemInfo *)[self.arrayPic objectAtIndex:index]).fileOrigin;
     [pageView loadInBackground];
     return pageView;

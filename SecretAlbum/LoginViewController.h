@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
-
+@interface LoginViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate >
+{
+    UITableView* m_tableView;
+    UITextField* fieldEmail;
+    UITextField* fieldPass;
+    
+    UIScrollView* m_scrollview;
+    
+    AVUser *tempUser;
+}
+@property(nonatomic)BOOL isFirst;
 @end

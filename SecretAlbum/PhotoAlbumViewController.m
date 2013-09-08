@@ -36,6 +36,47 @@
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav_top"]];
+
+    UILabel * titleLabel = [[UILabel alloc ]initWithFrame:CGRectMake(0, 0, 160, 44)];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:22]];
+    
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    titleLabel.text = @"私密云相册";
+    
+    self.navigationItem.titleView = titleLabel;
+    
+
+   
+
+    self.navigationController.navigationBarHidden = NO;
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"我的塔读_on.png"] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"我的塔读_off.png"] forState:UIControlStateNormal];
+    
+    button.frame = CGRectMake(0, 0, 50, 30);
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    [button addTarget:self action:@selector(toMoreViewController:) forControlEvents:UIControlEventTouchUpInside];
+    
+    barItem.width = 50;
+    self.navigationItem.rightBarButtonItem = barItem;
+    
+    
+    UIButton *buttonLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [buttonLeft setImage:[UIImage imageNamed:@"我的塔读_on.png"] forState:UIControlStateHighlighted];
+//    [buttonLeft setImage:[UIImage imageNamed:@"我的塔读_off.png"] forState:UIControlStateNormal];
+    
+    buttonLeft.frame = CGRectMake(0, 0, 50, 30);
+    UIBarButtonItem *barItem2 = [[UIBarButtonItem alloc] initWithCustomView:buttonLeft];
+    [buttonLeft addTarget:self action:@selector(leftBarBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+    buttonLeft.backgroundColor = [UIColor redColor];
+    barItem2.width = 50;
+    self.navigationItem.leftBarButtonItem = barItem2;
+    
     
     
     _array = [[NSMutableArray alloc] init];
@@ -53,7 +94,7 @@
     [swipeGestureRecog setNumberOfTouchesRequired:1];
     swipeGestureRecog.direction = UISwipeGestureRecognizerDirectionRight;
     swipeGestureRecog.delegate = self;
-    [self.view addGestureRecognizer:swipeGestureRecog];
+    [self.navigationController.view addGestureRecognizer:swipeGestureRecog];
     
     
 //    
@@ -69,7 +110,7 @@
     panGesture.minimumNumberOfTouches = 1;
     panGesture.maximumNumberOfTouches = 1;
     panGesture.delegate = self;
-    [self.view addGestureRecognizer:panGesture];
+    [self.navigationController.view addGestureRecognizer:panGesture];
     
     self.view.backgroundColor = [UIColor redColor];
     
@@ -185,8 +226,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"%@",objects);
-            albumId = [[objects objectAtIndex:0] objectId];
-            NSLog(@"%@",albumId);
+            _albumId = [[objects objectAtIndex:0] objectId];
+            NSLog(@"%@",_albumId);
         }
     }];
 }
@@ -350,7 +391,7 @@
                 AVObject *obj = [AVObject objectWithClassName:@"photo"];
                 [obj setObject:imageFile forKey:@"originurl"];
                 [obj setObject:imageFile2 forKey:@"thumbnailurl"];
-                [obj setObject:albumId forKey:@"albumID"];
+                [obj setObject:_albumId forKey:@"albumID"];
                 [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
                         if (i<[_array count]-1) {
@@ -406,7 +447,7 @@
 
 - (void)reloadImage{
     AVQuery*query = [AVQuery queryWithClassName:@"photo"];
-    [query whereKey:@"albumID" equalTo:albumId?albumId:@"1"];
+    [query whereKey:@"albumID" equalTo:_albumId?_albumId:@"1"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"%@",objects);
@@ -501,10 +542,10 @@
     }
     CGFloat xOffSet = currentPoint.x - touchBeganPoint.x;
     if (xOffSet > 0) {
-        self.view.frame = CGRectMake(xOffSet,
-                                     self.view.frame.origin.y,
-                                     self.view.frame.size.width,
-                                     self.view.frame.size.height);
+        self.navigationController.view.frame = CGRectMake(xOffSet,
+                                     self.navigationController.view.frame.origin.y,
+                                     self.navigationController.view.frame.size.width,
+                                     self.navigationController.view.frame.size.height);
     }
 
 
@@ -601,10 +642,10 @@
     homeViewIsOutOfStage = NO;
     [UIView animateWithDuration:0.3
                      animations:^{
-                         self.view.frame = CGRectMake(0,
-                                                      self.view.frame.origin.y,
-                                                      self.view.frame.size.width,
-                                                      self.view.frame.size.height);
+                         self.navigationController.view.frame = CGRectMake(0,
+                                                      self.navigationController.view.frame.origin.y,
+                                                      self.navigationController.view.frame.size.width,
+                                                      self.navigationController.view.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          UIControl *overView = (UIControl *)[[[UIApplication sharedApplication] keyWindow] viewWithTag:10086];
@@ -625,22 +666,22 @@
 - (void)moveToRightSide {
     homeViewIsOutOfStage = YES;
     [self animateHomeViewToSide:CGRectMake(200.0f,
-                                           self.view.frame.origin.y,
-                                           self.view.frame.size.width,
-                                           self.view.frame.size.height)];
+                                           self.navigationController.view.frame.origin.y,
+                                           self.navigationController.view.frame.size.width,
+                                           self.navigationController.view.frame.size.height)];
 }
 
 // animate home view to side rect
 - (void)animateHomeViewToSide:(CGRect)newViewRect {
     [UIView animateWithDuration:0.2
                      animations:^{
-                         self.view.frame = newViewRect;
+                         self.navigationController.view.frame = newViewRect;
                      }
                      completion:^(BOOL finished){
                          UIControl *overView = [[UIControl alloc] init];
                          overView.tag = 10086;
                          overView.backgroundColor = [UIColor clearColor];
-                         overView.frame = self.view.frame;
+                         overView.frame = self.navigationController.view.frame;
                          [overView addTarget:self action:@selector(restoreViewLocation) forControlEvents:UIControlEventTouchDown];
                          [[[UIApplication sharedApplication].delegate window] addSubview:overView];
                          

@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "DDAlertPrompt.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PhotoAlbumViewController.h"
 
 @interface LeftMenuViewController ()
 
@@ -33,14 +34,17 @@
     UIButton* btnCreatAblum = [UIButton buttonWithType:UIButtonTypeCustom];
     btnCreatAblum.frame = CGRectMake(0, 150, 200, 50);
     [btnCreatAblum setTitle:@"创建隐形相册" forState:UIControlStateNormal];
+    btnCreatAblum.backgroundColor = [UIColor redColor];
     [btnCreatAblum addTarget:self action:@selector(createAlbum) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnCreatAblum];
     
     UIButton* btnOpenAblum = [UIButton buttonWithType:UIButtonTypeCustom];
     btnOpenAblum.frame = CGRectMake(0, 100, 200, 50);
     [btnOpenAblum setTitle:@"打开隐形相册" forState:UIControlStateNormal];
+    btnOpenAblum.backgroundColor = [UIColor redColor];
     [btnOpenAblum addTarget:self action:@selector(openAlbum) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnOpenAblum];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 -(void)createAlbum{
     [(AppDelegate*)[UIApplication sharedApplication].delegate restoreViewLocation];
@@ -85,14 +89,58 @@
                                                                     delegate:self
                                                            cancelButtonTitle:@"确定"
                                                            otherButtonTitles: nil];
+                    [prompt show];
                     
 
                 }else{
-                    [self presentModalViewController:[((AppDelegate*)[UIApplication sharedApplication].delegate) navController] animated:YES];
+                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                    if (!appDelegate.tempUser) {
+                        UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"请先登录" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [myAlert show];
+                        return;
+                    }
+                    AVObject *createObj = [AVObject objectWithClassName:@"album"];
+                    [createObj setObject:[appDelegate.tempUser objectId] forKey:@"userid"];
+                    [createObj setObject:view.plainTextField.text forKey:@"password"];
+                    [createObj setObject:view.nameTextField.text forKey:@"albumname"];
+                    [createObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded && !error) {
+                            UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"创建相册成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [myAlert show];
+                        }
+                    }];
+                    PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
+                    albumCtrler.albumId = view.plainTextField.text;
+                    albumCtrler.tempUser = appDelegate.tempUser;
+                    [albumCtrler reloadImage];
+                    
+                    [self presentModalViewController:albumCtrler animated:YES];
                 }
                 
             }else  if (alertView.tag == 101) {
                 
+                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                AVQuery*query = [AVQuery queryWithClassName:@"album"];
+                [query whereKey:@"userid" equalTo:[appDelegate.tempUser objectId]];
+                UITextField *textField = (UITextField*)[alertView viewWithTag:1000];
+                [query whereKey:@"password" equalTo:textField.text];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (error || objects.count == 0) {
+                        UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:nil message:@"无此相册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [myAlert show];
+                    }else{
+                        
+                        PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
+                        albumCtrler.albumId = [[objects objectAtIndex:0] objectId];
+                        albumCtrler.tempUser = appDelegate.tempUser;
+                        
+                        [((AppDelegate*)[UIApplication sharedApplication].delegate).navController pushViewController:albumCtrler animated:NO];
+                        
+                        [((AppDelegate*)[UIApplication sharedApplication].delegate).window addSubview:((AppDelegate*)[UIApplication sharedApplication].delegate).navController.view];
+                    }
+                }];
+                
+ 
             }
             break;
     }
@@ -112,9 +160,10 @@
     [textField setPlaceholder:@"请输入相册密码"];
     [textField setSecureTextEntry:YES];
     textField.layer.cornerRadius = 5;
+    textField.tag = 1000;
     [prompt addSubview:textField];
     [prompt setTransform:CGAffineTransformMakeTranslation(0.0, -100.0)];  //可以调整弹出框在屏幕上的位置
-    prompt.tag = 100;
+    prompt.tag = 101;
     
     [prompt show];
     

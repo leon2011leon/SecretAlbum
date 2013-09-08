@@ -20,9 +20,10 @@
     AGAlertViewWithProgressbar *alertViewWithProgressbar;
     
     AVUser *tempUser;
-    NSString *albumId;
 }
-
+@property(strong,nonatomic)NSString *albumId;
+@property(strong,nonatomic)AVUser *tempUser;
 - (IBAction)leftBarBtnTapped:(id)sender;
 - (void)restoreViewLocation;
+- (void)reloadImage;
 @end

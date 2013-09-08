@@ -12,6 +12,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "PhotoAlbumViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -25,21 +26,27 @@
                                                     20,
                                                     rect.size.width,
                                                     rect.size.height-20);
-    [self.window addSubview:self.leftViewController.view];
     
+    self.photoAlbumCtrler = [[PhotoAlbumViewController alloc] init];
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ViewController" owner:self options:nil];
     self.navController = [nib objectAtIndex:0];
-    [self.navController pushViewController:[[PhotoAlbumViewController alloc] init] animated:NO];
+    [self.navController pushViewController:self.photoAlbumCtrler animated:NO];
     // Override point for customization after application launch.
     [self.window makeKeyAndVisible];
     
-    [self.leftViewController setVisible:NO];
+    [self.leftViewController setVisible:YES];
 
     
     // main view (nav)
     
-    [self.window addSubview:self.navController.view];
+//    [self.window addSubview:self.leftViewController.view];
+//    [self.window addSubview:self.navController.view];
     
+    self.loginViewCtrler = [[LoginViewController alloc] init];
+    self.loginViewCtrler.view.frame = self.navController.view.frame;
+    [self.window addSubview:self.loginViewCtrler.view];
+    self.loginViewCtrler.isFirst = YES;
+    //[self.navController presentModalViewController:login animated:NO];
     
     [AVOSCloud setApplicationId:@"kebqe6dp6m56fdr26ktwjkudydgyavnjqs06dza425lu7jdf"
                       clientKey:@"bnfpj0sutsxnoebw4bsil567ibap8ay0pllo4h58u9nno2o3"];
@@ -61,6 +68,13 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+//     LoginViewController* login = [[LoginViewController alloc] init];
+//    login.view.frame = self.navController.view.frame;
+    //[self.window addSubview:login.view];
+    self.loginViewCtrler.isFirst = NO;
+    [self.navController presentModalViewController:self.loginViewCtrler animated:NO];
+    
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -83,8 +97,7 @@
 
 - (void)restoreViewLocation{
     
-   PhotoAlbumViewController* ctrler = (PhotoAlbumViewController*)self.navController;
-    [ctrler restoreViewLocation];
+    [self.photoAlbumCtrler restoreViewLocation];
     
 }
 @end

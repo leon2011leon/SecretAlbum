@@ -76,7 +76,7 @@
     buttonLeft.frame = CGRectMake(0, 0, 50, 30);
     UIBarButtonItem *barItem2 = [[UIBarButtonItem alloc] initWithCustomView:buttonLeft];
     [buttonLeft addTarget:self action:@selector(leftBarBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
-    buttonLeft.backgroundColor = [UIColor redColor];
+    [buttonLeft setImage:[UIImage imageNamed:@"list"] forState:UIControlStateNormal];
     barItem2.width = 50;
     self.navigationItem.leftBarButtonItem = barItem2;
     

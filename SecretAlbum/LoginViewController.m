@@ -188,7 +188,7 @@
                 [query whereKey:@"userid" equalTo:[user objectId]];
                 [query whereKey:@"password" equalTo:fieldPass.text];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    [HUD show:NO];
+                    [HUD hide:YES];
                     if (!error) {
                         AppDelegate* delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                         PhotoAlbumViewController* albumCtrler = [[PhotoAlbumViewController alloc] init];
@@ -203,11 +203,12 @@
                 }];
  
             }else{
-                [self dismissModalViewControllerAnimated:NO];
+                [HUD hide:YES];
+                [self dismissModalViewControllerAnimated:YES];
             }
             //[self performSegueWithIdentifier:@"LoginSuccesful" sender:self];
         } else {
-            [HUD show:NO];
+            [HUD hide:YES];
             //Something bad has ocurred
             NSString *errorString = [[error userInfo] objectForKey:@"error"];
             UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
